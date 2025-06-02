@@ -139,9 +139,42 @@ print(consumo_normalizado)
 - Sábado
 - Índica que hay mayor variabilidad del consumo de los hogares.
 5. Identifica los 3 hogares con menor consumo total durante la semana. Muestra sus índices y valores.
-- Índices: [9 3 1] Valores: [62.6 66.1 76.1]
+- Índices: [9 3 1] Valores: [62.6 66.1 77.1]
 6. Si el hogar 3 aumenta su consumo en un 10% cada día, ¿cuál sería su nuevo consumo total semanal?
-- 121.22
+- 114.95
 
 
 """
+
+#1
+consumo_hogar5_viernes = consumo[4, 4]
+print("1. Consumo del hogar 5 el viernes:", consumo_hogar5_viernes)
+
+#2
+consumo_domingo_ultimos3 = consumo[-3:, 6]
+print("2. Consumo de los últimos 3 hogares el domingo:", consumo_domingo_ultimos3)
+
+#3
+fines_semana = consumo[:, 5:7]
+promedio_finde = np.mean(fines_semana)
+print("3. Promedio de consumo en fin de semana:", round(promedio_finde, 2))
+
+#4
+desviaciones = np.std(consumo, axis=0)
+dia_mayor_std = np.argmax(desviaciones)
+print("4. Día con mayor desviación estándar:", dia_mayor_std)
+print("   Desviación estándar:", desviaciones[dia_mayor_std])
+
+#5
+total_semanal = np.sum(consumo, axis=1)
+indices_menores = np.argsort(total_semanal)[:3]
+valores_menores = total_semanal[indices_menores]
+print("5. Tres hogares con menor consumo total:")
+print("   Índices:", indices_menores)
+print("   Valores:", np.round(valores_menores, 1))
+
+#6
+hogar3 = consumo[2]
+hogar3_aumentado = hogar3 * 1.10
+nuevo_total_hogar3 = np.sum(hogar3_aumentado)
+print("6. Nuevo consumo total del hogar 3 con +10% diario:", round(nuevo_total_hogar3, 2))
